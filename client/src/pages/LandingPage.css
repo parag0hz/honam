@@ -1,0 +1,109 @@
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #DFF3F7;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+.landing-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 30px;
+    animation: floatLogo 2s ease-in-out infinite;
+}
+
+/* 입력과 버튼 */
+.input-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.nickname-input {
+    flex: 1;
+    min-width: 160px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.nickname-input:focus {
+    border-color: #4a90e2;
+}
+
+.start-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover {
+    background-color: #357abd;
+    transform: scale(1.05);
+}
+
+/* 로고 효과 */
+@keyframes floatLogo {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-10px) scale(1.05);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .landing-logo {
+        width: 150px;
+    }
+
+    .input-section {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nickname-input {
+        width: 100%;
+    }
+
+    .start-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-logo {
+        width: 120px;
+    }
+
+    .nickname-input {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .start-button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
