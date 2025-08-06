@@ -24,9 +24,9 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    padding-bottom: 120px;
+    /* footer와 bottom-nav 높이만큼 공간 확보 */
     overflow-y: auto;
-    margin-bottom: 60px;
-    /* bottom-nav 공간 확보 */
 }
 
 .messages {
@@ -70,10 +70,16 @@
 }
 
 .footer {
+    position: fixed;
+    bottom: 50px;
+    /* bottom-nav 위에 위치 */
+    left: 0;
+    width: 100%;
     display: flex;
     padding: 10px;
     border-top: 1px solid #ccc;
     background-color: #d4f0f7;
+    z-index: 10;
 }
 
 .footer input {
@@ -106,6 +112,7 @@
     background-color: #d4f0f7;
     border-top: 1px solid #ccc;
     padding: 8px 0;
+    z-index: 9;
 }
 
 .bottom-nav button {

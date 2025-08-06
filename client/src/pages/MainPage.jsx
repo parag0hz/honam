@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './MainPage.css';
 import logo from '../assets/mainlogo.png';
 import { FaBars, FaMapMarkerAlt, FaRegClipboard } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
+
 
 const MainPage = () => {
     const [nickname, setNickname] = useState('');
@@ -55,7 +57,7 @@ const MainPage = () => {
                 <div className="messages">
                     {messages.map((msg, idx) => (
                         <div key={idx} className={`message ${msg.type}`}>
-                            {msg.text}
+                            <ReactMarkdown>{msg.text}</ReactMarkdown>
                         </div>
                     ))}
                 </div>
