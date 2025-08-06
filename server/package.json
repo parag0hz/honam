@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "setup": "if not exist .env (copy .env.example .env && echo .env 파일이 생성되었습니다. API 키를 설정해주세요.)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
