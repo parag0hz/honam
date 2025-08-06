@@ -5,7 +5,12 @@ import { FaBars, FaMapMarkerAlt, FaRegClipboard } from 'react-icons/fa';
 
 const MainPage = () => {
     const [nickname, setNickname] = useState('');
+    const [messages, setMessages] = useState([
+        { type: 'bot', text: '마음자리에 오신 걸 환영합니다. 무엇이든 편하게 이야기해 주세요.' }
+    ]);
+    const [inputValue, setInputValue] = useState('');
 
+    // 닉네임 로컬 스토리지에서 불러오기
     useEffect(() => {
         const storedNickname = localStorage.getItem('nickname');
         if (storedNickname) {
@@ -13,33 +18,39 @@ const MainPage = () => {
         }
     }, []);
 
-    const [messages, setMessages] = useState([
-        { type: 'bot', text: '그렇게 느껴지셔서 정말 안타깝네요. 뿅 구입은 ...' },
-        { type: 'bot', text: '교수님을 그렇게 느끼고 계시다니 정말 죄송하고 힘듭...' },
-        { type: 'bot', text: '응, 네가 왜 슬픈지 스스로도 잘 모르겠어서 더 답답한 마음을 ...' },
-    ]);
-
-    const [quickReplies] = useState([
-        '우울해서 빵샀어',
-        '교수님 정강이를 차고 싶어',
-        '나 왜 슬프게 ?'
-    ]);
-
-    const [inputValue, setInputValue] = useState('');
-
-    const handleSend = () => {
+    // 메시지 전송 함수
+    const handleSend = async () => {
         if (!inputValue.trim()) return;
-        setMessages([...messages, { type: 'user', text: inputValue }]);
+
+        const newMessages = [...messages, { type: 'user', text: inputValue }];
+        setMessages(newMessages);
+
+        try {
+            const response = await fetch("http://localhost:8000/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: inputValue }),
+            });
+
+            const data = await response.json();
+            setMessages([...newMessages, { type: 'bot', text: data.reply || "응답을 불러올 수 없습니다." }]);
+        } catch (error) {
+            console.error("Error:", error);
+            setMessages([...newMessages, { type: 'bot', text: "서버와 연결할 수 없습니다." }]);
+        }
+
         setInputValue('');
     };
 
     return (
         <div className="main-container">
+            {/* 상단 헤더 */}
             <header className="header">
                 <img src={logo} alt="마음자리 로고" className="logo" />
                 <span className="nickname-display">{nickname}님 환영합니다!</span>
             </header>
 
+            {/* 채팅 영역 */}
             <main className="chat-container">
                 <div className="messages">
                     {messages.map((msg, idx) => (
@@ -48,16 +59,9 @@ const MainPage = () => {
                         </div>
                     ))}
                 </div>
-
-                <div className="quick-replies">
-                    {quickReplies.map((reply, idx) => (
-                        <button key={idx} onClick={() => setMessages([...messages, { type: 'user', text: reply }])}>
-                            {reply}
-                        </button>
-                    ))}
-                </div>
             </main>
 
+            {/* 입력창 */}
             <footer className="footer">
                 <input
                     type="text"
@@ -69,6 +73,7 @@ const MainPage = () => {
                 <button className="send-btn" onClick={handleSend}>⬆</button>
             </footer>
 
+            {/* 하단 네비게이션 */}
             <nav className="bottom-nav">
                 <button><FaBars /></button>
                 <button><FaMapMarkerAlt /></button>
