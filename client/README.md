@@ -1,10 +1,27 @@
-# Getting Started with Create React App
+# Client (React App)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 [Create React App](https://github.com/facebook/create-react-app)으로 생성되었습니다.
+
+## 환경 설정
+
+1. `.env.example` 파일을 `.env`로 복사하세요:
+   ```bash
+   copy .env.example .env
+   ```
+
+2. `.env` 파일에서 다음 환경변수를 설정하세요:
+   - `REACT_APP_KAKAO_JS_KEY`: 카카오 JavaScript 키
+   - `REACT_APP_KAKAO_REST_KEY`: 카카오 REST API 키
+
+### 카카오 API 키 발급 방법
+
+1. [카카오 개발자 센터](https://developers.kakao.com/)에 접속
+2. 애플리케이션 추가 후 앱 키 확인
+3. JavaScript 키와 REST API 키를 복사하여 `.env` 파일에 설정
 
 ## Available Scripts
 
-In the project directory, you can run:
+프로젝트 디렉토리에서 다음 명령어들을 실행할 수 있습니다:
 
 ### `npm start`
 
