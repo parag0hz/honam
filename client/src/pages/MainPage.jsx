@@ -3,6 +3,8 @@ import './MainPage.css';
 import logo from '../assets/mainlogo.png';
 import { FaBars, FaMapMarkerAlt, FaRegClipboard } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const MainPage = () => {
@@ -44,6 +46,9 @@ const MainPage = () => {
         setInputValue('');
     };
 
+    const navigate = useNavigate();
+
+
     return (
         <div className="main-container">
             {/* 상단 헤더 */}
@@ -78,7 +83,7 @@ const MainPage = () => {
             {/* 하단 네비게이션 */}
             <nav className="bottom-nav">
                 <button><FaBars /></button>
-                <button><FaMapMarkerAlt /></button>
+                <button onClick={() => navigate('/map')}><FaMapMarkerAlt /></button>
                 <button><FaRegClipboard /></button>
             </nav>
         </div>
