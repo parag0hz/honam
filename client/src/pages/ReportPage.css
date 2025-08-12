@@ -1,0 +1,342 @@
+/* Report.css */
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.nickname-display {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.report-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 왼쪽 날짜 목록 영역 */
+.date-list-container {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.date-list-title {
+    padding: 25px 20px 15px 20px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+.date-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.date-item {
+    padding: 18px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.date-item:hover {
+    background: #f8f9fa;
+    transform: translateX(2px);
+}
+
+.date-item.active {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    box-shadow: inset 0 0 0 1px #bbdefb;
+}
+
+.date-item.active:hover {
+    background: #e3f2fd;
+}
+
+.date-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.date-item.active .date-text {
+    color: #1976d2;
+}
+
+.mood-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mood-emoji {
+    font-size: 18px;
+}
+
+.mood-text {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.date-item.active .mood-text {
+    color: #1976d2;
+}
+
+/* 오른쪽 보고서 내용 영역 */
+.report-content-container {
+    flex: 1;
+    background: white;
+    overflow-y: auto;
+    position: relative;
+}
+
+.report-header {
+    padding: 30px 40px 20px 40px;
+    border-bottom: 2px solid #f0f0f0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.report-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 15px 0;
+    text-align: left;
+}
+
+.report-mood {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.mood-emoji-large {
+    font-size: 24px;
+}
+
+.mood-text-large {
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+}
+
+.report-content {
+    padding: 30px 40px 40px 40px;
+    line-height: 1.7;
+    color: #444;
+}
+
+.welcome-message {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 100%);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border-left: 4px solid #4caf50;
+}
+
+.welcome-message p {
+    margin: 0;
+    font-size: 16px;
+    color: #2e7d32;
+    font-weight: 500;
+}
+
+.activities-content {
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.activities-content p {
+    margin: 12px 0;
+    color: #444;
+}
+
+.activities-content strong {
+    color: #1976d2;
+    font-weight: 600;
+}
+
+.report-footer {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* 하단 네비게이션 */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav button {
+    background: none;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    color: #666;
+    transition: all 0.2s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-nav button:hover {
+    background: #f0f0f0;
+    color: #333;
+    transform: translateY(-1px);
+}
+
+.bottom-nav button.active {
+    background: #e3f2fd;
+    color: #1976d2;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+/* 스크롤바 스타일링 */
+.date-list::-webkit-scrollbar,
+.report-content-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.date-list::-webkit-scrollbar-track,
+.report-content-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.date-list::-webkit-scrollbar-thumb,
+.report-content-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.date-list::-webkit-scrollbar-thumb:hover,
+.report-content-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .report-main {
+        flex-direction: column;
+    }
+
+    .date-list-container {
+        width: 100%;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .date-list {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 10px;
+    }
+
+    .date-item {
+        min-width: 200px;
+        margin-right: 10px;
+        border-radius: 8px;
+        border-bottom: none;
+        border: 1px solid #e0e0e0;
+    }
+
+    .date-item.active {
+        border-left: 1px solid #2196f3;
+        border: 2px solid #2196f3;
+    }
+
+    .report-content {
+        padding: 20px;
+    }
+
+    .report-header {
+        padding: 20px;
+    }
+
+    .report-title {
+        font-size: 20px;
+    }
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.report-content-container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.date-item {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* 호버 효과 개선 */
+.date-item::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 8px;
+    height: 8px;
+    background: #2196f3;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.date-item.active::after {
+    transform: translateY(-50%) scale(1);
+}
