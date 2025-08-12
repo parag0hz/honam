@@ -1,0 +1,56 @@
+/* 뿌리 높이 */
+html,
+body,
+#root {
+    height: 100%;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* 뷰포트 꽉 채우기 */
+}
+
+.header {
+    height: 56px;
+}
+
+.bottom-nav {
+    height: 56px;
+}
+
+.page-main {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    /* flex overflow 방지 */
+    overflow: hidden;
+}
+
+/* 지도 영역: 픽셀 기준 높이 필수 */
+.map-wrap {
+    position: relative;
+    flex: 1 1 60%;
+    min-width: 60%;
+    height: calc(100vh - 56px - 56px);
+    /* 헤더/하단 뺀 높이 */
+    min-height: 420px;
+    /* 안전망 */
+}
+
+/* google-map-react 내부 컨테이너가 래퍼를 꽉 채우도록 */
+.map-wrap>div {
+    position: absolute !important;
+    inset: 0;
+}
+
+/* Google 지도 이미지에는 max-width를 적용하지 말 것 */
+.gm-style img {
+    max-width: none !important;
+}
+
+img[src^="https://maps.gstatic.com/"],
+img[src^="https://maps.googleapis.com/"] {
+    max-width: none !important;
+}

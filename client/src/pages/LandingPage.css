@@ -1,17 +1,46 @@
+/* 전체 화면 강제 적용 */
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+/* 전체 화면 + 가운데 배치 */
 .landing-container {
+    display: flex;
+    justify-content: center;
+    /* 가로 중앙 */
+    align-items: center;
+    /* 세로 중앙 */
+    width: 100%;
+    height: 100%;
+    background-color: #DFF3F7;
+    /* 바로 전체 배경색 적용 */
+}
+
+/* 콘텐츠 박스: 이제 최대폭 제한 제거 */
+.landing-content {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* 세로 중앙 */
     align-items: center;
-    height: 100vh;
-    background-color: #DFF3F7;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    padding: 20px;
+    /* 가로 중앙 */
+    padding: 40px 30px;
+    box-sizing: border-box;
 }
 
+/* 로고 */
 .landing-logo {
     width: 180px;
+    max-width: 70%;
     height: auto;
     margin-bottom: 30px;
     animation: floatLogo 2s ease-in-out infinite;
@@ -21,11 +50,10 @@
 .input-section {
     display: flex;
     gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
     width: 100%;
     max-width: 400px;
+    /* 여기만 제한해서 입력창이 너무 넓어지지 않게 */
+    justify-content: center;
 }
 
 .nickname-input {
@@ -35,8 +63,6 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease;
 }
 
 .nickname-input:focus {
@@ -45,21 +71,19 @@
 
 .start-button {
     background-color: #4a90e2;
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .start-button:hover {
     background-color: #357abd;
-    transform: scale(1.05);
 }
 
-/* 로고 효과 */
+/* 로고 애니메이션 */
 @keyframes floatLogo {
 
     0%,
@@ -72,7 +96,7 @@
     }
 }
 
-/* 반응형 디자인 */
+/* 반응형 */
 @media (max-width: 768px) {
     .landing-logo {
         width: 150px;
@@ -83,10 +107,7 @@
         gap: 12px;
     }
 
-    .nickname-input {
-        width: 100%;
-    }
-
+    .nickname-input,
     .start-button {
         width: 100%;
     }

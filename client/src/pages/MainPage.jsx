@@ -50,42 +50,50 @@ const MainPage = () => {
 
 
     return (
-        <div className="main-container">
-            {/* 상단 헤더 */}
-            <header className="header">
-                <img src={logo} alt="마음자리 로고" className="logo" />
-                <span className="nickname-display">{nickname}님 환영합니다!</span>
-            </header>
+        <div className="page-wrapper">
+            <div className="main-container">
+                {/* 상단 헤더 */}
+                <header className="header">
+                    <img
+                        src={logo}
+                        alt="마음자리 로고"
+                        className="logo"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => navigate('/main')}
+                    />
+                    <span className="nickname-display">{nickname}님 환영합니다!</span>
+                </header>
 
-            {/* 채팅 영역 */}
-            <main className="chat-container">
-                <div className="messages">
-                    {messages.map((msg, idx) => (
-                        <div key={idx} className={`message ${msg.type}`}>
-                            <ReactMarkdown>{msg.text}</ReactMarkdown>
-                        </div>
-                    ))}
-                </div>
-            </main>
+                {/* 채팅 영역 */}
+                <main className="chat-container">
+                    <div className="messages">
+                        {messages.map((msg, idx) => (
+                            <div key={idx} className={`message ${msg.type}`}>
+                                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                            </div>
+                        ))}
+                    </div>
+                </main>
 
-            {/* 입력창 */}
-            <footer className="footer">
-                <input
-                    type="text"
-                    placeholder="메세지를 입력해주세요"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                />
-                <button className="send-btn" onClick={handleSend}>⬆</button>
-            </footer>
+                {/* 입력창 */}
+                <footer className="footer">
+                    <input
+                        type="text"
+                        placeholder="메세지를 입력해주세요"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                    />
+                    <button className="send-btn" onClick={handleSend}>⬆</button>
+                </footer>
 
-            {/* 하단 네비게이션 */}
-            <nav className="bottom-nav">
-                <button><FaBars /></button>
-                <button onClick={() => navigate('/map')}><FaMapMarkerAlt /></button>
-                <button><FaRegClipboard /></button>
-            </nav>
+                {/* 하단 네비게이션 */}
+                <nav className="bottom-nav">
+                    <button onClick={() => navigate('/home')}><FaBars /></button>
+                    <button onClick={() => navigate('/map')}><FaMapMarkerAlt /></button>
+                    <button onClick={() => navigate('/report')}><FaRegClipboard /></button>
+                </nav>
+            </div>
         </div>
     );
 };
