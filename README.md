@@ -38,9 +38,7 @@ python report_server.py
 ## 개발 환경
 ```
 nodejs>=16.0.0
-<br>
 npm>=8.0.0
-<br>
 python>=3.10
 ```
 
