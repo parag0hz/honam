@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBars, FaMapMarkerAlt, FaRegClipboard, FaCalendarAlt, FaPen, FaHeartbeat, FaChartLine } from 'react-icons/fa';
+import { FaBars, FaMapMarkerAlt, FaRegClipboard, FaCalendarAlt, FaPen, FaHeartbeat, FaChartLine, FaHome } from 'react-icons/fa';
 import logo from '../assets/mainlogo.png';
 import './HomePage.css';
 
@@ -258,6 +258,7 @@ const HomePage = () => {
 
             {/* 하단 네비게이션 */}
             <nav className="bottom-nav">
+                <button onClick={() => navigate('/main')}><FaHome /></button>
                 <button onClick={() => navigate('/home')} className="active"><FaBars /></button>
                 <button onClick={() => navigate('/map')}><FaMapMarkerAlt /></button>
                 <button onClick={() => navigate('/report')}><FaRegClipboard /></button>

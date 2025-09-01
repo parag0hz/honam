@@ -35,6 +35,26 @@
     justify-content: space-between;
 }
 
+.header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.clear-chat-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.clear-chat-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
 .logo {
     height: 40px;
 }
@@ -43,18 +63,16 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    padding-bottom: 120px;
+    padding: 30px;
+    /* 패딩 증가 */
+    padding-bottom: 233px;
+    /* 하단 패딩을 233px로 증가하여 메시지와 면책사항 사이에 3px 간격 추가 */
     overflow-y: auto;
     box-sizing: border-box;
 }
 
 .footer,
 .bottom-nav {
-    position: fixed;
-    left: 0;
-    /* 중앙 고정 제거 */
-    transform: none;
     width: 100%;
     /* 전체 폭 */
     max-width: none;
@@ -66,19 +84,40 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+    /* 메시지 간격 증가 */
 }
 
 .message {
-    max-width: 70%;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 14px;
+    max-width: 80%;
+    /* 큰 폰트에 맞춰 메시지 박스 폭 증가 */
+    padding: 20px;
+    /* 패딩 증가 */
+    border-radius: 15px;
+    /* 둥근 모서리 증가 */
+    font-size: 32px;
+    line-height: 1.5;
+    /* 줄 간격 조정 */
 }
 
 .message.bot {
     background-color: #a8d8e8;
     align-self: flex-start;
+    white-space: pre-line;
+    /* 줄바꿈 문자를 실제 줄바꿈으로 렌더링 */
+    line-height: 1.4;
+    /* 줄 간격 줄이기 (1.6 → 1.4) */
+}
+
+/* 봇 메시지 내부 p 태그 margin 조정 */
+.message.bot p {
+    margin: 8px 0;
+    /* 큰 폰트에 맞춰 마진 증가 */
+}
+
+/* 사용자 메시지 내부 p 태그도 동일하게 적용 */
+.message.user p {
+    margin: 8px 0;
 }
 
 .message.user {
@@ -101,52 +140,185 @@
     cursor: pointer;
 }
 
-.footer {
-    bottom: 50px;
+/* 하단 고정 영역 */
+.bottom-fixed-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 10;
     display: flex;
-    gap: 10px;
-    padding: 10px;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.footer {
+    position: relative;
+    bottom: auto;
+    display: flex;
+    gap: 15px;
+    /* 간격 증가 */
+    padding: 15px;
+    /* 패딩 증가 */
     border-top: 1px solid #ccc;
     background: #d4f0f7;
-    z-index: 10;
+    font-size: 32px;
+    /* 폰트 크기를 32px로 증가 */
 }
 
 .footer input {
     flex: 1;
-    padding: 10px;
+    padding: 15px 20px;
+    /* 패딩 증가 */
     border: 1px solid #ccc;
-    border-radius: 20px;
+    border-radius: 25px;
+    /* 둥근 모서리 증가 */
     outline: none;
+    font-size: 32px;
+    /* 입력창 폰트 크기 32px로 증가 */
+    height: 60px;
+    /* 높이 증가 */
+    box-sizing: border-box;
 }
 
 .send-btn {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    /* 버튼 크기 증가 */
+    height: 60px;
+    /* 버튼 크기 증가 */
     border: none;
     border-radius: 50%;
     cursor: pointer;
     background: #77c2d8;
     color: #fff;
-    font-size: 16px;
+    font-size: 32px;
+    /* 버튼 아이콘 크기 증가 */
+    transition: all 0.3s ease;
+}
+
+.send-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.send-btn.loading {
+    background: #ffb74d;
+}
+
+/* 로딩 메시지 스타일 */
+.message.loading {
+    background-color: #e8f5e8 !important;
+    align-self: flex-start !important;
+}
+
+/* 로딩 점 애니메이션 */
+.loading-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 0;
+}
+
+.loading-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #666;
+    animation: loading-bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0s;
+}
+
+@keyframes loading-bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 입력창 비활성화 스타일 */
+.footer input:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* 의료 면책 조항 스타일 */
+.medical-disclaimer {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding: 15px 20px;
+    /* 패딩 증가 */
+    background-color: #fff8e1;
+    border-top: 1px solid #ffcc02;
+    font-size: 23px;
+    /* 폰트 크기를 23px로 조정 */
+    line-height: 1.4;
+    /* 줄 간격 조정 */
+    color: #f57c00;
+    text-align: center;
+    height: auto;
+    /* 고정 높이 제거하여 내용에 맞게 조정 */
+    min-height: 60px;
+    /* 최소 높이 증가 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    /* 마진 제거 */
 }
 
 .bottom-nav {
-    bottom: 0;
+    position: relative;
+    bottom: auto;
     display: flex;
     justify-content: space-around;
-    padding: 8px 0;
+    padding: 15px 0;
+    /* 패딩 증가 */
     border-top: 1px solid #ccc;
     background: #d4f0f7;
-    z-index: 9;
 }
 
 .bottom-nav button {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 28px;
+    /* 4개 버튼에 맞춰 아이콘 크기 약간 줄임 */
     cursor: pointer;
     color: #333;
+    padding: 10px;
+    /* 터치하기 쉽게 패딩 추가 */
+    transition: color 0.2s ease;
 }
+
+.bottom-nav button:hover {
+    color: #77c2d8;
+    /* 호버 효과 추가 */
+}
+
+
 
 @keyframes spin {
     0% {

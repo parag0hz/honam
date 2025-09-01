@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 25px;
+    padding: 20px 30px; /* 패딩 증가 */
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid #e0e0e0;
@@ -24,9 +24,64 @@
 }
 
 .nickname-display {
-    font-size: 18px;
+    font-size: 32px; /* 18px에서 32px로 증가 */
     font-weight: 600;
     color: #333;
+}
+
+/* 상단 의료 면책 조항 스타일 */
+.medical-disclaimer-top {
+    background: linear-gradient(135deg, #fff8e1 0%, #fffbf0 100%);
+    border-bottom: 1px solid #ffcc02;
+    padding: 15px 25px; /* 패딩 증가 */
+    box-shadow: 0 1px 4px rgba(255, 193, 7, 0.2);
+}
+
+.disclaimer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.disclaimer-icon {
+    font-size: 24px; /* 16px에서 24px로 증가 */
+    color: #f57c00;
+    flex-shrink: 0;
+}
+
+.disclaimer-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 18px; /* 12px에서 18px로 증가 */
+    line-height: 1.3;
+    color: #f57c00;
+    text-align: center;
+}
+
+.disclaimer-text span {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .medical-disclaimer-top {
+        padding: 6px 15px;
+    }
+
+    .disclaimer-content {
+        gap: 8px;
+    }
+
+    .disclaimer-icon {
+        font-size: 14px;
+    }
+
+    .disclaimer-text {
+        font-size: 9px;
+    }
 }
 
 .report-main {
@@ -48,7 +103,7 @@
 .date-list-title {
     padding: 25px 20px 15px 20px;
     margin: 0;
-    font-size: 20px;
+    font-size: 36px; /* 20px에서 36px로 증가 */
     font-weight: 700;
     color: #333;
     border-bottom: 1px solid #f0f0f0;
@@ -59,6 +114,28 @@
     flex: 1;
     overflow-y: auto;
     padding: 10px 0;
+}
+
+.loading-indicator {
+    padding: 15px 20px;
+    text-align: center;
+    color: #666;
+    font-size: 24px; /* 14px에서 24px로 증가 */
+    background: #f0f8ff;
+    margin: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #e3f2fd;
+}
+
+.no-reports {
+    padding: 30px 20px;
+    text-align: center;
+    color: #999;
+}
+
+.no-reports p {
+    margin: 5px 0;
+    font-size: 24px; /* 14px에서 24px로 증가 */
 }
 
 .date-item {
@@ -85,10 +162,27 @@
 }
 
 .date-text {
-    font-size: 16px;
+    font-size: 28px; /* 16px에서 28px로 증가 */
     font-weight: 600;
     color: #333;
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sample-badge {
+    font-size: 16px; /* 10px에서 16px로 증가 */
+    background: #ff9800;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.date-item.active .sample-badge {
+    background: #f57c00;
 }
 
 .date-item.active .date-text {
@@ -102,11 +196,11 @@
 }
 
 .mood-emoji {
-    font-size: 18px;
+    font-size: 32px; /* 18px에서 32px로 증가 */
 }
 
 .mood-text {
-    font-size: 14px;
+    font-size: 24px; /* 14px에서 24px로 증가 */
     color: #666;
     font-weight: 500;
 }
@@ -129,12 +223,289 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
 }
 
+.report-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
 .report-title {
-    font-size: 24px;
+    font-size: 42px; /* 24px에서 42px로 증가 */
     font-weight: 700;
     color: #333;
-    margin: 0 0 15px 0;
+    margin: 0;
     text-align: left;
+    flex: 1;
+}
+
+.generate-report-btn {
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    padding: 15px 24px; /* 패딩 증가 */
+    border-radius: 8px;
+    font-size: 24px; /* 14px에서 24px로 증가 */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    white-space: nowrap;
+    min-width: 140px;
+}
+
+.generate-report-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+}
+
+.generate-report-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.report-timestamp {
+    font-size: 20px; /* 12px에서 20px로 증가 */
+    color: #888;
+    font-style: italic;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.session-info {
+    font-size: 24px; /* 14px에서 24px로 증가 */
+    color: #666;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.version-badge {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 12px; /* 패딩 증가 */
+    border-radius: 12px;
+    font-size: 18px; /* 11px에서 18px로 증가 */
+    font-weight: 500;
+}
+
+.three-line-summary {
+    background: #f8f9fa;
+    border-left: 4px solid #4caf50;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+}
+
+.three-line-summary h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.summary-line {
+    margin: 8px 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+.professional-report {
+    margin-bottom: 25px;
+}
+
+.professional-report h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+
+.comparison-analysis {
+    background: #fff3e0;
+    border-left: 4px solid #ff9800;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+}
+
+.comparison-analysis h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.content-recommendations {
+    background: #e8f5e8;
+    border-left: 4px solid #4caf50;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+}
+
+.content-recommendations h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.recommendation-category {
+    margin-bottom: 20px;
+}
+
+.recommendation-category h4 {
+    margin: 0 0 10px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.recommendation-category ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.recommendation-category li {
+    margin: 6px 0;
+    line-height: 1.5;
+    color: #666;
+}
+
+.feedback-checklist {
+    background: #f3e5f5;
+    border-left: 4px solid #9c27b0;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.feedback-checklist h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.checklist-link-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3);
+}
+
+.checklist-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4);
+    text-decoration: none;
+    color: white;
+}
+
+/* 리포트 섹션 스타일링 */
+.report-section {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.report-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section-content {
+    color: #555;
+}
+
+.section-content p {
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+.section-content ul {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.section-content li {
+    margin: 6px 0;
+    line-height: 1.5;
+}
+
+.section-content strong {
+    font-weight: 600;
+}
+
+/* 전문 리포트 마크다운 스타일 */
+.professional-report .activities-content h3 {
+    margin: 25px 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.professional-report .activities-content h3:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.professional-report .activities-content p {
+    margin: 12px 0;
+    line-height: 1.8;
+    color: #555;
+    font-size: 15px;
+    padding: 8px 0;
+}
+
+.professional-report .activities-content ul {
+    margin: 15px 0;
+    padding-left: 20px;
+    background: rgba(248, 249, 250, 0.6);
+    border-radius: 6px;
+    padding: 15px 20px 15px 40px;
+}
+
+.professional-report .activities-content li {
+    margin: 8px 0;
+    color: #666;
+    line-height: 1.6;
+    position: relative;
+}
+
+.professional-report .activities-content li::before {
+    content: '•';
+    color: #2196f3;
+    font-size: 18px;
+    position: absolute;
+    left: -20px;
+    top: 0;
+}
+
+.professional-report .activities-content strong {
+    color: #1976d2;
+    font-weight: 600;
+    background: rgba(33, 150, 243, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
 }
 
 .report-mood {
@@ -145,18 +516,19 @@
 }
 
 .mood-emoji-large {
-    font-size: 24px;
+    font-size: 48px; /* 24px에서 48px로 증가 */
 }
 
 .mood-text-large {
-    font-size: 16px;
+    font-size: 32px; /* 16px에서 32px로 증가 */
     font-weight: 600;
     color: #555;
 }
 
 .report-content {
     padding: 30px 40px 40px 40px;
-    line-height: 1.7;
+    line-height: 1.8; /* 줄 간격 증가 */
+    font-size: 20px; /* 기본 폰트 크기 추가 */
     color: #444;
 }
 
@@ -212,7 +584,7 @@
     padding: 12px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px; /* 4개 버튼에 맞춰 아이콘 크기 약간 줄임 */
     color: #666;
     transition: all 0.2s ease;
     width: 50px;

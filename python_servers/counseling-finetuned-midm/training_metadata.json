@@ -1,0 +1,6 @@
+{
+  "model_type": "compatible",
+  "original_model": "K-intelligence/Midm-2.0-Base-Instruct",
+  "training_samples": 42560,
+  "method": "LoRA"
+}

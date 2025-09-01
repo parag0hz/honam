@@ -389,7 +389,7 @@
     padding: 12px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px; /* 4개 버튼에 맞춰 아이콘 크기 약간 줄임 */
     color: #666;
     transition: all 0.2s ease;
     width: 50px;

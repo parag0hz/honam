@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import GoogleMapReact from 'google-map-react';
 import logo from '../assets/mainlogo.png';
-import { FaBars, FaMapMarkerAlt, FaRegClipboard } from 'react-icons/fa';
+import { FaBars, FaMapMarkerAlt, FaRegClipboard, FaHome } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Map.css'; // MainPage.css에서 Map.css로 변경
 
@@ -198,20 +198,25 @@ const MapPage = () => {
 
             const service = new maps.places.PlacesService(map);
 
-            const runNearby = (opts) => new Promise((resolve) => {
+            const runNearby = (opts) => new Promise((resolve, reject) => {
                 console.log('nearbySearch 요청:', opts);
-                service.nearbySearch(
-                    opts,
-                    (results, status) => {
-                        console.log('nearbySearch 결과:', status, results?.length || 0);
-                        if (status === maps.places.PlacesServiceStatus.OK && results) {
-                            resolve(results);
-                        } else {
-                            console.warn('검색 실패:', status);
-                            resolve([]);
+                try {
+                    service.nearbySearch(
+                        opts,
+                        (results, status) => {
+                            console.log('nearbySearch 결과:', status, results?.length || 0);
+                            if (status === maps.places.PlacesServiceStatus.OK && results) {
+                                resolve(results);
+                            } else {
+                                console.warn('검색 실패:', status);
+                                resolve([]);
+                            }
                         }
-                    }
-                );
+                    );
+                } catch (searchError) {
+                    console.error('nearbySearch 실행 오류:', searchError);
+                    resolve([]);
+                }
             });
 
             const base = {
@@ -232,7 +237,7 @@ const MapPage = () => {
                 searchQueries.map(query => runNearby(query))
             );
 
-            let allPlaces = searchResults.flat();
+            let allPlaces = searchResults.flat().filter(place => place != null);
             console.log('초기 검색 결과 수:', allPlaces.length);
 
             if (allPlaces.length === 0) {
@@ -242,24 +247,32 @@ const MapPage = () => {
                     runNearby({ ...widerBase, type: 'hospital', keyword: '병원' }),
                     runNearby({ ...widerBase, type: 'health', keyword: '의료' })
                 ]);
-                allPlaces = widerResults.flat();
+                allPlaces = widerResults.flat().filter(place => place != null);
                 console.log('확대 검색 결과 수:', allPlaces.length);
             }
 
             // 결과 변환 + 중복 제거
             const formatted = allPlaces
-                .filter(place => place && place.place_id)
-                .map((place) => ({
-                    id: place.place_id,
-                    place_name: place.name || '이름 없음',
-                    address_name: place.vicinity || place.formatted_address || '주소 정보 없음',
-                    phone: place.formatted_phone_number || '전화번호 정보 없음',
-                    x: place.geometry?.location?.lng?.() ?? 0,
-                    y: place.geometry?.location?.lat?.() ?? 0,
-                    category_name: Array.isArray(place.types) ? place.types.slice(0, 3).join(', ') : '',
-                    rating: place.rating ?? '평점 없음',
-                    business_status: place.business_status || 'UNKNOWN',
-                }));
+                .filter(place => place && place.place_id && place.geometry && place.geometry.location)
+                .map((place) => {
+                    try {
+                        return {
+                            id: place.place_id,
+                            place_name: place.name || '이름 없음',
+                            address_name: place.vicinity || place.formatted_address || '주소 정보 없음',
+                            phone: place.formatted_phone_number || '전화번호 정보 없음',
+                            x: place.geometry.location.lng() || 0,
+                            y: place.geometry.location.lat() || 0,
+                            category_name: Array.isArray(place.types) ? place.types.slice(0, 3).join(', ') : '',
+                            rating: place.rating ?? '평점 없음',
+                            business_status: place.business_status || 'UNKNOWN',
+                        };
+                    } catch (formatError) {
+                        console.error('장소 데이터 변환 오류:', formatError, place);
+                        return null;
+                    }
+                })
+                .filter(place => place !== null);
 
             const unique = formatted.filter((p, i, self) =>
                 i === self.findIndex((q) => q.id === p.id)
@@ -301,7 +314,12 @@ const MapPage = () => {
         }
 
         console.log('병원 검색 조건 만족 - 검색 시작');
-        searchHospitals(position, map, mapsApi);
+        // 검색 실행을 약간 지연시켜 안정성 향상
+        const timeoutId = setTimeout(() => {
+            searchHospitals(position, map, mapsApi);
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
     }, [mapLoaded, map, mapsApi, position, searchHospitals]);
 
     // 위치 재요청 함수
@@ -343,10 +361,25 @@ const MapPage = () => {
             console.warn('지도 객체가 없어서 이동할 수 없습니다.');
             return;
         }
-        const pos = { lat: parseFloat(hospital.y), lng: parseFloat(hospital.x) };
+
+        // 안전한 파싱
+        const lat = parseFloat(hospital.y);
+        const lng = parseFloat(hospital.x);
+
+        if (isNaN(lat) || isNaN(lng)) {
+            console.error('유효하지 않은 좌표:', { lat: hospital.y, lng: hospital.x });
+            return;
+        }
+
+        const pos = { lat, lng };
         console.log('병원 클릭 - 지도 이동:', pos);
-        map.setCenter(pos);
-        map.setZoom(16);
+
+        try {
+            map.setCenter(pos);
+            map.setZoom(16);
+        } catch (error) {
+            console.error('지도 이동 중 오류:', error);
+        }
     }, [map]);
 
     const onHospitalListClick = (hospital) => {
@@ -497,11 +530,11 @@ const MapPage = () => {
                         style={{ width: '100%', height: '100%' }}
                     >
                         <CurrentLocationMarker lat={position.lat} lng={position.lng} />
-                        {hospitals.map((h, i) => (
+                        {hospitals.filter(h => h && h.y && h.x && !isNaN(parseFloat(h.y)) && !isNaN(parseFloat(h.x))).map((h, i) => (
                             <HospitalMarker
                                 key={h.id || i}
-                                lat={+h.y}
-                                lng={+h.x}
+                                lat={parseFloat(h.y)}
+                                lng={parseFloat(h.x)}
                                 hospital={h}
                                 onClick={onHospitalClick}
                             />
@@ -643,6 +676,7 @@ const MapPage = () => {
 
             {/* 하단 네비게이션 */}
             <nav className="bottom-nav">
+                <button onClick={() => navigate('/main')}><FaHome /></button>
                 <button onClick={() => navigate('/home')}><FaBars /></button>
                 <button onClick={() => navigate('/map')} className="active"><FaMapMarkerAlt /></button>
                 <button onClick={() => navigate('/report')}><FaRegClipboard /></button>
