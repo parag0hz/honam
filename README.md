@@ -5,14 +5,17 @@
 마음자리: 심리상담 데이터 활용 AI 기반 정신건강 관리 시스템
 
 <details>
-<summary>🚀 클릭해서 열기</summary>
+<summary>환경 설정</summary>
 
-여기에 접혔다가 펼쳐질 내용을 작성합니다.
-
-- 리스트 1
-- 리스트 2
-- 리스트 3
-
+## 저장소 코드 복사 
+```
+git clone https://github.com/parag0hz/honam.git
+```
+## 패키지 설치
+```
+cd python_servers
+conda env create -f environment.yml
+```
 </details>
 
 ## 프로젝트 기간
