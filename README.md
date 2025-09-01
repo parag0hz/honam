@@ -200,8 +200,8 @@ honam/
 │  │  ├─ final_server.py
 │  │  └─ report_server.py
 │  └─ environment.yml
-├─ web/                # (프론트엔드가 있을 경우)
-├─ data/               # (데이터/모델 체크포인트)
+├─ client/         (프론트엔드)
+├─ server/         (백엔드)       
 └─ README.md
 ```
 
