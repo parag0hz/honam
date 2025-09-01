@@ -231,14 +231,6 @@ python python_servers/counseling-finetuned-midm/report_server.py
 
 ---
 
-
----
-
-### 기여
-
-* 버그/개선 제안은 **Issues**에 등록해주세요.
-* 코드 변경은 **PR(pull request)** 템플릿을 사용해 주세요.
-
 ### 고지
 
 * 이 프로젝트는 심리상담을 보조하기 위한 도구이며, **의학적 진단을 대체하지 않습니다**. 긴급 상황 시 지역 응급기관에 즉시 연락하세요.
