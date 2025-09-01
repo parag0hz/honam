@@ -22,4 +22,4 @@
 <img width="1206" height="676" alt="image" src="https://github.com/user-attachments/assets/570b866f-ad31-4d1f-88e2-c424dc4744d6" />
 
 ## 팀원 소개
-<img width="734" height="1063" alt="image" src="https://github.com/user-attachments/assets/45f26940-802c-441a-a7fc-c37f9fc4aafc" />
+<img width="1906" height="1067" alt="image" src="https://github.com/user-attachments/assets/6a41b16b-f7c7-4fbc-aa07-26f6ed29c95a" />
