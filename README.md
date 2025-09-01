@@ -36,11 +36,13 @@ python report_server.py
 2025.08.01 ~ 2025.08.22
 
 ## 개발 환경
+```
 nodejs>=16.0.0
 <br>
 npm>=8.0.0
 <br>
 python>=3.10
+```
 
 <details>
 <summary><b>주요 기능</b></summary>
