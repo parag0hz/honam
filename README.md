@@ -1,7 +1,7 @@
 # 호남IS해커톤 조선심리센터: 마음자리
 > **마음자리: 심리상담 데이터 활용 AI 기반 정신건강 관리 시스템**
 <img width="1215" height="684" alt="image" src="https://github.com/user-attachments/assets/87ef8aef-d9cb-4baa-b260-72d6d5ca438e" />
----
+
 
 ## 목차
 
