@@ -11,8 +11,6 @@
 
 2. `.env` 파일에서 다음 환경변수를 설정하세요:
    - `REACT_APP_GOOGLE_MAPS_API_KEY`: 구글맵 API 키 (필수)
-   - `REACT_APP_KAKAO_JS_KEY`: 카카오 JavaScript 키 (선택)
-   - `REACT_APP_KAKAO_REST_KEY`: 카카오 REST API 키 (선택)
 
 ### 구글맵 API 키 발급 방법
 
