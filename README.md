@@ -16,6 +16,20 @@ git clone https://github.com/parag0hz/honam.git
 cd python_servers
 conda env create -f environment.yml
 ```
+
+## 채팅 서버 
+```
+conda activate counseling-midm
+cd PATH/python_servers/counseling-finetuned-midm
+python final_server.py
+```
+
+## 리포트 서버
+```
+conda activate counseling-midm
+cd PATH/python_servers/counseling-finetuned-midm
+python report_server.py
+```
 </details>
 
 ## 프로젝트 기간
