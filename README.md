@@ -16,6 +16,7 @@
 * [정량적 평가](#정량적-평가)
 * [프로젝트 구조](#프로젝트-구조)
 * [개발/실행 스크립트](#개발실행-스크립트)
+* [보안 / Git 히스토리 정리 (macOS)](#보안--git-히스토리-정리-macos)
 * [팀](#팀)
 
 ---
@@ -220,6 +221,104 @@ python python_servers/counseling-finetuned-midm/final_server.py
 # 리포트 서버 실행
 python python_servers/counseling-finetuned-midm/report_server.py
 ```
+
+---
+
+## 보안 / Git 히스토리 정리 (macOS)
+
+`client/.env` 등 민감 파일이 과거 커밋에 포함된 경우, 아래 스크립트로 히스토리를 완전히 제거할 수 있습니다.
+
+### 주의사항
+
+> ⚠️ 이 작업은 **git 히스토리를 재작성**합니다. 협업자가 있다면 반드시 사전에 알리고, 작업 완료 후 **re-clone**을 요청하세요.
+> 노출된 키(Google Maps, Kakao 등)는 히스토리 제거 전에 반드시 **폐기/재발급(rotate)** 하세요.
+
+### 실행 방법
+
+```bash
+chmod +x purge_honam_env_history_macos.sh
+./purge_honam_env_history_macos.sh
+```
+
+스크립트가 수행하는 작업:
+
+1. `git-filter-repo` 미설치 시 Homebrew로 자동 설치
+2. GitHub SSH 호스트키(`known_hosts`) 자동 등록
+3. 미러 클론 → `client/.env` 히스토리 전체 제거
+4. `origin` 리모트 재등록(filter-repo가 제거하기 때문)
+5. `git push origin --force --all` + `git push origin --force --tags`
+6. 새 클론으로 제거 검증
+
+### HTTPS 사용 시 (SSH 대신)
+
+스크립트 상단에서 `REPO_SSH`를 비우고 `REPO_HTTPS`를 사용하세요.
+HTTPS push 시 GitHub는 비밀번호 대신 **PAT(Personal Access Token)** 가 필요합니다:
+
+1. <https://github.com/settings/tokens> → "Generate new token (classic)"
+2. 권한: `repo` (full control) 체크
+3. git credential 입력 시: Username = GitHub 사용자명, Password = PAT
+
+macOS Keychain에 저장해두려면:
+
+```bash
+git config --global credential.helper osxkeychain
+```
+
+### 문제 해결 (SSH)
+
+<details>
+<summary><b>Host key verification failed</b></summary>
+
+GitHub에 처음 SSH 접속 시 known_hosts에 등록이 안 되어 발생합니다.
+
+```bash
+mkdir -p ~/.ssh
+ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
+ssh-keyscan -t rsa     github.com >> ~/.ssh/known_hosts
+sort -u ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+```
+
+스크립트가 이 과정을 자동으로 수행하지만, 수동으로도 실행할 수 있습니다.
+
+</details>
+
+<details>
+<summary><b>Permission denied (publickey)</b></summary>
+
+SSH 키가 GitHub 계정에 등록되지 않은 경우입니다.
+
+1. 키 생성 (없는 경우):
+   ```bash
+   ssh-keygen -t ed25519 -C "your_email@example.com"
+   ```
+2. 공개키를 GitHub에 등록:
+   ```bash
+   cat ~/.ssh/id_ed25519.pub
+   ```
+   → <https://github.com/settings/keys> 에서 "New SSH key"로 붙여넣기
+3. ssh-agent에 키 추가:
+   ```bash
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/id_ed25519
+   ```
+4. 연결 테스트:
+   ```bash
+   ssh -T git@github.com
+   # Hi <username>! You've successfully authenticated...
+   ```
+
+포트 22가 방화벽에 막혀 있다면 HTTPS 방식(위 참고)을 사용하거나,
+SSH over HTTPS(port 443)를 시도하세요:
+
+```ssh-config
+# ~/.ssh/config
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+  User git
+```
+
+</details>
 
 ---
 
