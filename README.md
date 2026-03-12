@@ -68,7 +68,23 @@ git clone https://github.com/parag0hz/honam.git
 cd honam
 ```
 
-### 2) Conda 환경 생성
+### 2) 클라이언트 환경 변수 설정
+
+> **⚠️ 보안 주의:** `.env` 파일은 절대 Git에 커밋하지 마세요.
+
+```bash
+cd client
+cp .env.example .env   # Windows: copy .env.example .env
+# .env 파일을 열어 각 키를 실제 값으로 교체하세요
+```
+
+설정이 필요한 환경 변수:
+- `REACT_APP_GOOGLE_MAPS_API_KEY`: [Google Cloud Console](https://console.cloud.google.com/)에서 발급
+- `REACT_APP_KAKAO_JS_KEY` / `REACT_APP_KAKAO_REST_KEY`: [Kakao Developers](https://developers.kakao.com/)에서 발급
+
+자세한 내용은 [`client/README.md`](./client/README.md)를 참고하세요.
+
+### 3) Conda 환경 생성
 
 ```bash
 cd python_servers
@@ -76,7 +92,7 @@ conda env create -f environment.yml
 conda activate counseling-midm
 ```
 
-### 3) 의존성 확인 (선택)
+### 4) 의존성 확인 (선택)
 
 ```bash
 python --version  # >= 3.10
