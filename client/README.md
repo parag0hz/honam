@@ -6,11 +6,26 @@
 
 1. `.env.example` 파일을 `.env`로 복사하세요:
    ```bash
-   copy .env.example .env
+   cp .env.example .env
    ```
 
-2. `.env` 파일에서 다음 환경변수를 설정하세요:
+2. `.env` 파일에서 다음 환경변수를 실제 키 값으로 설정하세요:
+   - `REACT_APP_KAKAO_JS_KEY`: 카카오 JavaScript 키 (필수)
+   - `REACT_APP_KAKAO_REST_KEY`: 카카오 REST API 키 (필수)
    - `REACT_APP_GOOGLE_MAPS_API_KEY`: 구글맵 API 키 (필수)
+
+> ⚠️ **주의**: `.env` 파일에는 실제 키 값이 포함되어 있으므로 절대 Git에 커밋하지 마세요.
+> `.gitignore`에 의해 자동으로 무시되지만, 커밋 전 `git status`로 항상 확인하세요.
+
+### 카카오 API 키 발급 방법
+
+1. [Kakao Developers](https://developers.kakao.com/)에 접속
+2. 내 애플리케이션 > 애플리케이션 추가하기
+3. 앱 이름, 사업자명 입력 후 저장
+4. 생성된 앱의 "앱 키" 탭에서:
+   - **JavaScript 키** → `REACT_APP_KAKAO_JS_KEY`
+   - **REST API 키** → `REACT_APP_KAKAO_REST_KEY`
+5. "플랫폼" 탭에서 Web 플랫폼 등록 (사이트 도메인 추가)
 
 ### 구글맵 API 키 발급 방법
 
@@ -20,7 +35,8 @@
    - Maps JavaScript API
    - Places API
 4. "API 및 서비스" > "사용자 인증 정보"에서 API 키 생성
-5. API 키를 복사하여 `.env` 파일에 설정
+5. API 키에 HTTP 리퍼러(웹사이트) 제한을 설정하여 무단 사용 방지
+6. API 키를 복사하여 `.env` 파일에 설정
 
 ## Available Scripts
 
